@@ -4,7 +4,7 @@ import icon from '../../assets/icon.svg';
 import 'tailwindcss/tailwind.css';
 
 function Hello() {
-  return <h1 className="bg-red-500">Hello</h1>;
+  return <h1 className="btn">Click Me!</h1>;
 }
 
 export default function App() {
