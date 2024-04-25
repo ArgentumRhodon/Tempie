@@ -1,5 +1,5 @@
 import { SyntheticEvent } from 'react';
-import { To } from 'react-router-dom';
+import { User } from '../types/User';
 
 const devURL = 'http://localhost:3000';
 const prodURL = 'https://tempie-server-b490ad9cab9b.herokuapp.com';
@@ -81,8 +81,25 @@ const logout = async (handler: (res: { redirect: string }) => void) => {
   return false;
 };
 
+const getUser = async (handler: (res: { user: User }) => void) => {
+  const response = await fetch(`${targetURL}/user`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  });
+
+  const result = await response.json();
+
+  if (handler) handler(result);
+
+  return false;
+};
+
 const useLogin = () => login;
 const useSignup = () => signup;
 const useLogout = () => logout;
+const useUser = () => getUser;
 
-export { useLogin, useSignup, useLogout };
+export { useLogin, useSignup, useLogout, useUser };
