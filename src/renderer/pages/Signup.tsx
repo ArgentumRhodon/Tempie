@@ -1,13 +1,12 @@
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { useLogin } from '../../hooks/useAuth';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSignup } from '../../hooks/useAuth';
 import { SyntheticEvent } from 'react';
 
-const Login = () => {
+const Signup = () => {
   const navigate = useNavigate();
-  const login = useLogin();
-  const onLogin = (e: SyntheticEvent<HTMLFormElement>) => {
-    login(e, (res) => {
+  const signup = useSignup();
+  const onSignup = (e: SyntheticEvent<HTMLFormElement>) => {
+    signup(e, (res) => {
       if (res.redirect) {
         navigate(res.redirect);
       }
@@ -20,13 +19,19 @@ const Login = () => {
         <div className="card w-96">
           <form
             className="card-body text-center items-center bg-base-200 shadow-lg rounded-lg"
-            onSubmit={onLogin}
+            onSubmit={onSignup}
           >
-            <h2 className="card-title mb-6">Login</h2>
+            <h2 className="card-title mb-6">Signup</h2>
             <input
               type="email"
               placeholder="Email"
               name="email"
+              className="input input-bordered w-full max-w-xs"
+            />
+            <input
+              type="text"
+              placeholder="Username"
+              name="username"
               className="input input-bordered w-full max-w-xs"
             />
             <input
@@ -35,11 +40,13 @@ const Login = () => {
               name="password"
               className="input input-bordered w-full max-w-xs"
             />
-            <button className="btn btn-primary w-full max-w-xs" type="submit">
-              Log In
-            </button>
-            <Link to="/signup" className="link link-primary mt-6">
-              Don't have an account?
+            <input
+              className="btn btn-primary w-full max-w-xs"
+              type="submit"
+              value={'Sign Up'}
+            />
+            <Link to="/" className="link link-primary mt-6">
+              Already have an account?
             </Link>
           </form>
         </div>
@@ -48,4 +55,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

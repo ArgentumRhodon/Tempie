@@ -2,7 +2,6 @@ const colors = require('tailwindcss/colors');
 
 module.exports = {
   content: ['./src/renderer/**/*.{js,jsx,ts,tsx,ejs}'],
-  darkMode: true, // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
@@ -15,4 +14,7 @@ module.exports = {
     extend: {},
   },
   plugins: [require('daisyui')],
+  daisyui: {
+    themes: ['light', 'dark', 'coffee'],
+  },
 };
