@@ -1,10 +1,8 @@
-import { Link } from 'react-router-dom';
-import { LogoutButton, UserInfo } from '../components';
+import { LogoutButton } from '../components';
 
 const Chat = () => {
   return (
     <>
-      <UserInfo />
       <LogoutButton />
     </>
   );

@@ -36,7 +36,7 @@ const login = async (
 
 const signup = async (
   e: SyntheticEvent<HTMLFormElement>,
-  handler: (res: { redirect: string }) => void,
+  handler?: (res: { redirect: string }) => void,
 ) => {
   e.preventDefault();
   const target = e.target as typeof e.target & {
@@ -65,7 +65,7 @@ const signup = async (
   return false;
 };
 
-const logout = async (handler: (res: { redirect: string }) => void) => {
+const logout = async (handler?: (res: { redirect: string }) => void) => {
   const response = await fetch(`${targetURL}/logout`, {
     method: 'GET',
     headers: {
@@ -81,7 +81,7 @@ const logout = async (handler: (res: { redirect: string }) => void) => {
   return false;
 };
 
-const getUser = async (handler: (res: { user: User }) => void) => {
+const getUser = async (handler?: (res: { user: User }) => void) => {
   const response = await fetch(`${targetURL}/user`, {
     method: 'GET',
     headers: {
