@@ -38,7 +38,7 @@ const Login = () => {
             <button className="btn btn-primary w-full max-w-xs" type="submit">
               Log In
             </button>
-            <Link to="/signup" className="link link-primary mt-6">
+            <Link to="/auth/signup" className="link link-primary mt-6">
               Don't have an account?
             </Link>
           </form>

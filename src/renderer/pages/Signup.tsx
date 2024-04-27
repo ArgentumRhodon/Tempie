@@ -45,7 +45,7 @@ const Signup = () => {
               type="submit"
               value={'Sign Up'}
             />
-            <Link to="/" className="link link-primary mt-6">
+            <Link to="/auth/login" className="link link-primary mt-6">
               Already have an account?
             </Link>
           </form>

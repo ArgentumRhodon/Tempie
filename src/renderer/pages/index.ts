@@ -1,6 +1,7 @@
 import Login from './Login';
 import Signup from './Signup';
 import Chat from './Chat';
-import Welcome from './Welcome';
+import Friends from './Friends';
+import App from './App';
 
-export { Login, Signup, Chat, Welcome };
+export { Login, Signup, Chat, Friends, App };

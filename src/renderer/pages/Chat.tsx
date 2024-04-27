@@ -1,11 +1,5 @@
-import { LogoutButton } from '../components';
-
 const Chat = () => {
-  return (
-    <>
-      <LogoutButton />
-    </>
-  );
+  return <h1>Chat</h1>;
 };
 
 export default Chat;
