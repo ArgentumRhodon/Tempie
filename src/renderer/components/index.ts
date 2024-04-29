@@ -1,3 +1,4 @@
 import LogoutButton from './LogoutButton';
+import MessageItem from './MessageItem';
 
-export { LogoutButton };
+export { LogoutButton, MessageItem };

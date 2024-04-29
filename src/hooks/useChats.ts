@@ -1,3 +1,4 @@
+import { SyntheticEvent } from 'react';
 import { Chat } from '../types/Chat';
 
 const devURL = 'http://localhost:3000';
@@ -17,12 +18,25 @@ const getChats = async (handler: (res: Chat[]) => void) => {
   if (handler) handler(result);
 };
 
-const createChat = async (handler: (res: Chat) => void) => {
+const createChat = async (
+  e: SyntheticEvent<HTMLFormElement>,
+  handler: (res: Chat) => void,
+) => {
+  e.preventDefault();
+  const target = e.target as typeof e.target & {
+    name: { value: string };
+  };
+
+  const name = target.name.value;
+
+  target.name.value = '';
+
   const response = await fetch(`${targetURL}/chats`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify({ name }),
     credentials: 'include',
   });
 

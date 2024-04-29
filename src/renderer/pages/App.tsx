@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router-dom';
-import { LogoutButton } from '../components';
+import { LogoutButton, MessageItem } from '../components';
 import { SyntheticEvent, createContext, useEffect, useState } from 'react';
 import { User } from '../../types/User';
 import { useUser } from '../../hooks/useAuth';
@@ -42,8 +42,8 @@ const App = () => {
     }
   }, [openChat]);
 
-  const onChannelButtonClick = () => {
-    chatFuncs.createChat((res) => {
+  const onChannelCreateSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
+    chatFuncs.createChat(e, (res) => {
       chatFuncs.getChats((res) => {
         if (res) setChats(res);
       });
@@ -64,21 +64,38 @@ const App = () => {
     <UserContext.Provider value={user}>
       <div className="drawer drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content p-4 flex flex-col h-[100vh]">
-          {messages.map((msg) => (
-            <p>{msg.text}</p>
-          ))}
+        <div className="drawer-content p-3 flex flex-col h-[100vh]">
+          {openChat && (
+            <>
+              <h1 className="text-xl">
+                You're chatting in{' '}
+                <span className="font-semibold italic">{openChat?.name}</span>
+              </h1>
 
-          <form action="" className="mt-auto" onSubmit={onMsgSend}>
-            {openChat && (
-              <input
-                type="text"
-                className="input input-bordered w-full"
-                placeholder="Send a message"
-                name="text"
-              />
-            )}
-          </form>
+              <div className="divider mt-0"></div>
+
+              {messages.map((msg) => (
+                <MessageItem message={msg} />
+              ))}
+
+              <form action="" className="mt-auto pb-2" onSubmit={onMsgSend}>
+                {openChat && (
+                  <input
+                    type="text"
+                    className="input input-bordered w-full"
+                    placeholder="Send a message"
+                    name="text"
+                  />
+                )}
+              </form>
+            </>
+          )}
+
+          {!openChat && (
+            <h1 className="text-xl flex h-full justify-center items-center">
+              No open chats!
+            </h1>
+          )}
 
           {/* <label
           htmlFor="my-drawer-2"
@@ -93,28 +110,43 @@ const App = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+          <ul className="menu p-3 w-80 min-h-full bg-base-200 text-base-content">
             {/* <Link to="/app/friends" className="btn btn-neutral">
               Friends
             </Link> */}
-            <div className="divider font-semibold text-xl">Chats</div>
+            <h1 className="text-xl">Chats</h1>
+            <div className="divider mt-0"></div>
+            {chats.length === 0 && <h1>No chats yet...</h1>}
             {chats.map((chat) => (
               <button
                 key={chat._id}
-                className="btn btn-neutral"
+                className="btn btn-neutral mb-3"
                 onClick={() => setOpenChat(chat)}
               >
                 {chat.name}
               </button>
             ))}
             <li className="mt-auto">
-              {/* <LogoutButton /> */}
-              <button
-                className="btn btn-secondary"
-                onClick={onChannelButtonClick}
+              <label htmlFor="name">Add A Channel</label>
+              <form
+                action=""
+                className="join gap-0"
+                onSubmit={onChannelCreateSubmit}
               >
-                Add Your Own Chat
-              </button>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Enter name"
+                  className="input input-bordered join-item"
+                />
+                <button
+                  className="btn btn-secondary join-item text-2xl font-bold"
+                  type="submit"
+                >
+                  +
+                </button>
+              </form>
+              {/* <LogoutButton /> */}
             </li>
           </ul>
         </div>

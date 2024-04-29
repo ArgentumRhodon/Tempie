@@ -1,5 +1,4 @@
 import { SyntheticEvent } from 'react';
-import { Chat } from '../types/Chat';
 import { Message } from '../types/Message';
 
 const devURL = 'http://localhost:3000';
@@ -47,6 +46,8 @@ const sendMessage = async (
   const result = await response.json();
 
   if (handler) handler(result);
+
+  return false;
 };
 
 const msgFuncs = { getMessages, sendMessage };
