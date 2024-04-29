@@ -11,11 +11,11 @@ const login = async (
 ) => {
   e.preventDefault();
   const target = e.target as typeof e.target & {
-    email: { value: string };
+    username: { value: string };
     password: { value: string };
   };
 
-  const email = target.email.value;
+  const username = target.username.value;
   const password = target.password.value;
 
   const response = await fetch(`${targetURL}/login`, {
@@ -23,7 +23,7 @@ const login = async (
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ username, password }),
     credentials: 'include',
   });
 
@@ -40,21 +40,21 @@ const signup = async (
 ) => {
   e.preventDefault();
   const target = e.target as typeof e.target & {
-    email: { value: string };
     username: { value: string };
-    password: { value: string };
+    password1: { value: string };
+    password2: { value: string };
   };
 
-  const email = target.email.value;
   const username = target.username.value;
-  const password = target.password.value;
+  const password1 = target.password1.value;
+  const password2 = target.password2.value;
 
   const response = await fetch(`${targetURL}/signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ email, username, password }),
+    body: JSON.stringify({ username, password1, password2 }),
     credentials: 'include',
   });
 

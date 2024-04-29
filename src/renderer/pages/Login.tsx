@@ -24,9 +24,9 @@ const Login = () => {
           >
             <h2 className="card-title mb-6">Login</h2>
             <input
-              type="email"
-              placeholder="Email"
-              name="email"
+              type="text"
+              placeholder="Username"
+              name="username"
               className="input input-bordered w-full max-w-xs"
             />
             <input

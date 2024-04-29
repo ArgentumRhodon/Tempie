@@ -23,12 +23,6 @@ const Signup = () => {
           >
             <h2 className="card-title mb-6">Signup</h2>
             <input
-              type="email"
-              placeholder="Email"
-              name="email"
-              className="input input-bordered w-full max-w-xs"
-            />
-            <input
               type="text"
               placeholder="Username"
               name="username"
@@ -37,7 +31,13 @@ const Signup = () => {
             <input
               type="password"
               placeholder="Password"
-              name="password"
+              name="password1"
+              className="input input-bordered w-full max-w-xs"
+            />
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              name="password2"
               className="input input-bordered w-full max-w-xs"
             />
             <input

@@ -5,7 +5,7 @@ import {
   Link,
   useNavigate,
 } from 'react-router-dom';
-import { Login, Signup, Chat, Friends, App } from './pages';
+import { Login, Signup, Chat, App } from './pages';
 import 'tailwindcss/tailwind.css';
 import { useEffect } from 'react';
 
@@ -32,8 +32,7 @@ export default function AppRouter() {
           </Route>
           {/*In-app paths*/}
           <Route path="app" element={<App />}>
-            <Route path="chat" element={<Chat />} />
-            <Route path="friends" element={<Friends />} />
+            {/* <Route path="friends" element={<Friends />} /> */}
           </Route>
         </Routes>
       </Router>
