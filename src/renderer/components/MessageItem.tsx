@@ -3,18 +3,9 @@ import useUsernameByID from '../../hooks/useAccount';
 import { Message } from '../../types/Message';
 
 const MessageItem = ({ message }: { message: Message }) => {
-  const [username, setUsername] = useState<string>('');
-  const getUsernameByID = useUsernameByID();
-
-  useEffect(() => {
-    getUsernameByID(message.senderID, (res) => {
-      setUsername(res);
-    });
-  });
-
   return (
-    <p>
-      {username}: {message.text}
+    <p className="my-1">
+      <span className="text-primary">{message.senderName}</span>: {message.text}
     </p>
   );
 };

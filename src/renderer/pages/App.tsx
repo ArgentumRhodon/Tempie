@@ -1,4 +1,3 @@
-import { Link, Outlet } from 'react-router-dom';
 import { LogoutButton, MessageItem } from '../components';
 import { SyntheticEvent, createContext, useEffect, useState } from 'react';
 import { User } from '../../types/User';
@@ -7,6 +6,7 @@ import { Chat } from '../../types/Chat';
 import { useChats } from '../../hooks/useChats';
 import { Message } from '../../types/Message';
 import { useMessages } from '../../hooks/useMessages';
+import useSocket from '../../hooks/useSocket';
 
 const defUser: User = {
   username: '[Error with user]',
@@ -24,6 +24,7 @@ const App = () => {
   const getUser = useUser();
   const chatFuncs = useChats();
   const msgFuncs = useMessages();
+  const socket = useSocket();
 
   useEffect(() => {
     getUser((res) => {
@@ -39,6 +40,7 @@ const App = () => {
       msgFuncs.getMessages(openChat._id, (res) => {
         if (res) setMessages(res);
       });
+      socket.emit('room change', openChat._id);
     }
   }, [openChat]);
 
@@ -52,6 +54,9 @@ const App = () => {
 
   const onMsgSend = (e: SyntheticEvent<HTMLFormElement>) => {
     if (openChat) {
+      console.log('Sending message in ', openChat.name);
+
+      socket.emit('send message');
       msgFuncs.sendMessage(openChat._id, e, (res) => {
         msgFuncs.getMessages(openChat._id, (res) => {
           if (res) setMessages(res);
@@ -59,6 +64,16 @@ const App = () => {
       });
     }
   };
+
+  socket.once('incoming message', () => {
+    console.log('getting messages for ', openChat?.name);
+
+    if (openChat) {
+      msgFuncs.getMessages(openChat._id, (res) => {
+        if (res) setMessages(res);
+      });
+    }
+  });
 
   return (
     <UserContext.Provider value={user}>
@@ -75,7 +90,7 @@ const App = () => {
               <div className="divider mt-0"></div>
 
               {messages.map((msg) => (
-                <MessageItem message={msg} />
+                <MessageItem key={msg._id} message={msg} />
               ))}
 
               <form action="" className="mt-auto pb-2" onSubmit={onMsgSend}>
@@ -146,8 +161,9 @@ const App = () => {
                   +
                 </button>
               </form>
-              {/* <LogoutButton /> */}
             </li>
+            <div className="divider"></div>
+            <LogoutButton />
           </ul>
         </div>
       </div>
